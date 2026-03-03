@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tool_course_tag_ai\output\form;
+namespace tool_course_tags_ai\output\form;
 
 defined('MOODLE_INTERNAL') || die();
 global $CFG;
@@ -23,7 +23,7 @@ require_once($CFG->dirroot . '/lib/formslib.php');
 /**
  * Form for applying AI-suggested tags to a course.
  *
- * @package     tool_course_tag_ai
+ * @package     tool_course_tags_ai
  * @copyright   2025
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -55,10 +55,10 @@ class course_tags_form extends \moodleform {
         $mform->addElement($tags);
 
         // Add AI tag suggestions button.
-        $mform->addElement('submit', 'getaisuggestions', get_string('getaisuggestions_button', 'tool_course_tag_ai'));
+        $mform->addElement('submit', 'getaisuggestions', get_string('getaisuggestions_button', 'tool_course_tags_ai'));
 
         // Add action buttons (Save/Cancel).
-        $this->add_action_buttons(true, get_string('applytags', 'tool_course_tag_ai'));
+        $this->add_action_buttons(true, get_string('applytags', 'tool_course_tags_ai'));
 
         // Disable the form change checker so the AI suggestions button does not trigger
         // an "unsaved changes" warning.
@@ -93,7 +93,7 @@ class course_tags_form extends \moodleform {
         }
         // Require at least one tag when using the final submit button.
         if (empty($data['formtags'])) {
-            return ['formtags' => get_string('error_no_tags_selected', 'tool_course_tag_ai')];
+            return ['formtags' => get_string('error_no_tags_selected', 'tool_course_tags_ai')];
         }
         return [];
     }

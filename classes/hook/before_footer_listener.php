@@ -17,12 +17,12 @@
 /**
  * Hook listener for before_footer_html_generation hook.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace tool_course_tag_ai\hook;
+namespace tool_course_tags_ai\hook;
 
 use core\hook\output\before_footer_html_generation;
 
@@ -41,7 +41,7 @@ class before_footer_listener {
         global $PAGE;
 
         // Check if AI suggestions are enabled. Exit early if disabled.
-        if (!get_config('tool_course_tag_ai', 'enable_ai_suggestions')) {
+        if (!get_config('tool_course_tags_ai', 'enable_ai_suggestions')) {
             return;
         }
 
@@ -60,14 +60,14 @@ class before_footer_listener {
 
         // Check capability.
         $course = \get_course($courseid);
-        if (!$course || !has_capability('tool/course_tag_ai:view', \context_course::instance($course->id))) {
+        if (!$course || !has_capability('tool/course_tags_ai:view', \context_course::instance($course->id))) {
             return;
         }
 
         // Build target URL for AI suggestions page.
-        $targeturl = new \moodle_url('/admin/tool/course_tag_ai/index.php', ['courseid' => $courseid]);
+        $targeturl = new \moodle_url('/admin/tool/course_tags_ai/index.php', ['courseid' => $courseid]);
 
         // Load AMD module to inject button.
-        $PAGE->requires->js_call_amd('tool_course_tag_ai/tagsuggest', 'init', [$courseid, $targeturl->out(false)]);
+        $PAGE->requires->js_call_amd('tool_course_tags_ai/tagsuggest', 'init', [$courseid, $targeturl->out(false)]);
     }
 }

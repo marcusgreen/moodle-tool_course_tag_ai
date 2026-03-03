@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy provider for tool_course_tag_ai.
+ * Privacy provider for tool_course_tags_ai.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace tool_course_tag_ai\privacy;
+namespace tool_course_tags_ai\privacy;
 
 use core_privacy\local\metadata\null_provider;
 
 /**
- * Privacy provider implementation for tool_course_tag_ai.
+ * Privacy provider implementation for tool_course_tags_ai.
  */
 class provider implements null_provider {
     /**

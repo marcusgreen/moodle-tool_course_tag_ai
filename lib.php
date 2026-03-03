@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Hook implementations for tool_course_tag_ai.
+ * Hook implementations for tool_course_tags_ai.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param stdClass $course The course object.
  * @param context $context The course context.
  */
-function tool_course_tag_ai_extend_navigation_course(
+function tool_course_tags_ai_extend_navigation_course(
     \navigation_node $navigation,
     \stdClass $course,
     \context $context
@@ -44,20 +44,20 @@ function tool_course_tag_ai_extend_navigation_course(
     }
 
     // Check capability.
-    if (!has_capability('tool/course_tag_ai:view', $context)) {
+    if (!has_capability('tool/course_tags_ai:view', $context)) {
         return;
     }
 
     // Build URL to the AI suggestions page.
-    $url = new \moodle_url('/admin/tool/course_tag_ai/index.php', ['courseid' => $course->id]);
+    $url = new \moodle_url('/admin/tool/course_tags_ai/index.php', ['courseid' => $course->id]);
 
     // Add navigation link.
     $navigation->add(
-        get_string('aisuggestions_nav', 'tool_course_tag_ai'),
+        get_string('aisuggestions_nav', 'tool_course_tags_ai'),
         $url,
         \navigation_node::TYPE_SETTING,
         null,
-        'course_tag_ai',
+        'course_tags_ai',
         new \pix_icon('i/settings', '')
     );
 }

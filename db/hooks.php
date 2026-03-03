@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Hook registrations for tool_course_tag_ai.
+ * Hook registrations for tool_course_tags_ai.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,6 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 $callbacks = [
     [
         'hook' => \core\hook\output\before_footer_html_generation::class,
-        'callback' => \tool_course_tag_ai\hook\before_footer_listener::class . '::before_footer_html_generation',
+        'callback' => \tool_course_tags_ai\hook\before_footer_listener::class . '::before_footer_html_generation',
     ],
 ];

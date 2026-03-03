@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Course Tag AI Suggestions tool plugin version and requirements.
+ * Course Tags AI Suggestions tool plugin version and requirements.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,5 +26,5 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version   = 2025041400;
 $plugin->requires  = 2025040800;
-$plugin->component = 'tool_course_tag_ai';
+$plugin->component = 'tool_course_tags_ai';
 $plugin->maturity  = MATURITY_STABLE;

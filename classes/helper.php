@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace tool_course_tag_ai;
+namespace tool_course_tags_ai;
 
 /**
  * Helper class for course tag AI suggestions.
@@ -22,7 +22,7 @@ namespace tool_course_tag_ai;
  * Provides functionality to generate AI-based tag suggestions for courses
  * based on the names of course items (modules/activities).
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -45,7 +45,7 @@ class helper {
             throw new \moodle_exception('coursenotfound', 'error', '', $courseid);
         }
 
-        $configprompt = get_config('tool_course_tag_ai', 'prompt');
+        $configprompt = get_config('tool_course_tags_ai', 'prompt');
         if (empty($configprompt)) {
             $configprompt = self::get_default_prompt();
         }
@@ -58,7 +58,7 @@ class helper {
                 continue;
             }
             $prompt = $configprompt . "<<" . format_string($item->name) . ">>";
-            $suggestedtags[] = self::perform_request($prompt, 'feedback', 'tool_course_tag_ai');
+            $suggestedtags[] = self::perform_request($prompt, 'feedback', 'tool_course_tags_ai');
         }
 
         $tagswithcount = array_count_values($suggestedtags);
@@ -109,7 +109,7 @@ class helper {
      * @return string The LLM response
      * @throws \moodle_exception If AI service is not configured or request fails
      */
-    public static function perform_request(string $prompt, string $purpose = 'feedback', string $component = 'tool_course_tag_ai'): string {
+    public static function perform_request(string $prompt, string $purpose = 'feedback', string $component = 'tool_course_tags_ai'): string {
         $backend = get_config('qtype_aitext', 'backend');
 
         if ($backend == 'local_ai_manager') {
@@ -142,7 +142,7 @@ class helper {
             return $llmresponse['response']['choices'][0]['message']['content'];
         }
 
-        throw new \moodle_exception('err_invalidbackend', 'tool_course_tag_ai');
+        throw new \moodle_exception('err_invalidbackend', 'tool_course_tags_ai');
     }
 
     /**
@@ -151,6 +151,6 @@ class helper {
      * @return string The default prompt template
      */
     public static function get_default_prompt(): string {
-        return get_string('default_prompt', 'tool_course_tag_ai', '');
+        return get_string('default_prompt', 'tool_course_tags_ai', '');
     }
 }

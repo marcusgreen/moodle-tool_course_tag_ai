@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capabilities for tool_course_tag_ai.
+ * Capabilities for tool_course_tags_ai.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-    'tool/course_tag_ai:view' => [
+    'tool/course_tags_ai:view' => [
         'captype'      => 'read',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes'   => [

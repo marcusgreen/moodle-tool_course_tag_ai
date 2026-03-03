@@ -17,7 +17,7 @@
 /**
  * AI tag suggestions form page for a course.
  *
- * @package    tool_course_tag_ai
+ * @package    tool_course_tags_ai
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -37,7 +37,7 @@ $course = get_course($courseid);
 // Authentication and authorization.
 require_login($course);
 $context = context_course::instance($course->id);
-require_capability('tool/course_tag_ai:view', $context);
+require_capability('tool/course_tags_ai:view', $context);
 
 // Return URL (back to course edit form).
 $returnurl = new moodle_url('/course/edit.php', ['id' => $courseid]);
@@ -48,8 +48,8 @@ if ($cancel) {
 }
 
 // Set up page.
-$PAGE->set_url(new moodle_url('/admin/tool/course_tag_ai/index.php', ['courseid' => $courseid]));
-$PAGE->set_title(get_string('heading_suggestions', 'tool_course_tag_ai'));
+$PAGE->set_url(new moodle_url('/admin/tool/course_tags_ai/index.php', ['courseid' => $courseid]));
+$PAGE->set_title(get_string('heading_suggestions', 'tool_course_tags_ai'));
 $PAGE->set_heading($course->fullname);
 $PAGE->set_pagelayout('standard');
 
@@ -60,7 +60,7 @@ $formparams = [
 ];
 
 // Instantiate the form.
-$form = new \tool_course_tag_ai\output\form\course_tags_form(null);
+$form = new \tool_course_tags_ai\output\form\course_tags_form(null);
 
 // First set_data() call - populates hidden courseid, empties tags.
 $form->set_data($formparams);
@@ -71,14 +71,14 @@ if ($fromform = $form->get_data()) {
     if (isset($fromform->submitbutton)) {
         // Final submit: apply the tags to the course.
         \core_tag_tag::set_item_tags('core', 'course', $course->id, $context, $fromform->formtags);
-        redirect($returnurl, get_string('tags_applied', 'tool_course_tag_ai'));
+        redirect($returnurl, get_string('tags_applied', 'tool_course_tags_ai'));
     }
 
     if (isset($fromform->getaisuggestions)) {
         // AI suggestions button was clicked: fetch suggestions and re-populate.
         try {
-            $suggestioncount = (int) get_config('tool_course_tag_ai', 'suggestioncount') ?: 5;
-            $suggestedtags = \tool_course_tag_ai\helper::get_ai_suggestions($courseid, $suggestioncount);
+            $suggestioncount = (int) get_config('tool_course_tags_ai', 'suggestioncount') ?: 5;
+            $suggestedtags = \tool_course_tags_ai\helper::get_ai_suggestions($courseid, $suggestioncount);
             $formparams['suggestedtags'] = $suggestedtags;
             // Second set_data() call with suggestions filled in.
             $form->set_data($formparams);
