@@ -1,5 +1,7 @@
 # moodle-tool_course_tag_ai
 
+![Course Tag AI](docs/course_tag_ai.png)
+
 ## Overview
 
 **Course Tag AI** is a Moodle admin tool that generates AI-powered tag suggestions for courses based on their content. It automatically analyzes the names and types of course items/activities and recommends relevant tags using artificial intelligence.
