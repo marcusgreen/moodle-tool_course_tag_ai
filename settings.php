@@ -55,5 +55,19 @@ if ($hassiteconfig) {
         3
     ));
 
+    // Add setting for LLM backend selection.
+    $backends = [
+        'local_ai_manager' => get_string('backend_local_ai_manager', 'tool_course_tags_ai'),
+        'core_ai_subsystem' => get_string('backend_core_ai_subsystem', 'tool_course_tags_ai'),
+        'tool_aimanager' => get_string('backend_tool_aimanager', 'tool_course_tags_ai'),
+    ];
+    $settings->add(new \admin_setting_configselect(
+        'tool_course_tags_ai/backend',
+        get_string('backend_setting', 'tool_course_tags_ai'),
+        get_string('backend_setting_desc', 'tool_course_tags_ai'),
+        'core_ai_subsystem',
+        $backends
+    ));
+
     $ADMIN->add('tools', $settings);
 }

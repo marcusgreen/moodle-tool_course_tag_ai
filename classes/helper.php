@@ -100,49 +100,18 @@ class helper {
     /**
      * Perform an AI/LLM request.
      *
-     * Calls the LLM using either the 4.X core API or backend provided by
-     * local_ai_manager (mebis) or tool_aimanager.
+     * Calls the LLM using the AiBridge class which handles multiple backends
+     * (local_ai_manager, core_ai_subsystem, or tool_aimanager).
      *
      * @param string $prompt The prompt to send to the AI service
      * @param string $purpose The purpose of the request (e.g., 'feedback')
-     * @param string $component The component requesting the AI service
+     * @param string $component The component requesting the AI service (unused, kept for compatibility)
      * @return string The LLM response
      * @throws \moodle_exception If AI service is not configured or request fails
      */
     public static function perform_request(string $prompt, string $purpose = 'feedback', string $component = 'tool_course_tags_ai'): string {
-        $backend = get_config('qtype_aitext', 'backend');
-
-        if ($backend == 'local_ai_manager') {
-            $manager = new \local_ai_manager\manager($purpose);
-            $llmresponse = (object) $manager->perform_request($prompt, $component, \context_system::instance()->id);
-            if ($llmresponse->get_code() !== 200) {
-                throw new \moodle_exception(
-                    'err_retrievingfeedback',
-                    'qtype_aitext',
-                    '',
-                    $llmresponse->get_errormessage(),
-                    $llmresponse->get_debuginfo()
-                );
-            }
-            return $llmresponse->get_content();
-        } else if ($backend == 'core_ai_subsystem') {
-            global $USER;
-            $action = new \core_ai\aiactions\generate_text(
-                contextid: \context_system::instance()->id,
-                userid: $USER->id,
-                prompttext: $prompt
-            );
-            $manager = \core\di::get(\core_ai\manager::class);
-            $llmresponse = $manager->process_action($action);
-            $responsedata = $llmresponse->get_response_data();
-            return $responsedata['generatedcontent'];
-        } else if ($backend == 'tool_aimanager') {
-            $ai = new \tool_aiconnect\ai\ai();
-            $llmresponse = $ai->prompt_completion($prompt);
-            return $llmresponse['response']['choices'][0]['message']['content'];
-        }
-
-        throw new \moodle_exception('err_invalidbackend', 'tool_course_tags_ai');
+        $aibridge = new AiBridge(\context_system::instance()->id);
+        return $aibridge->perform_request($prompt, $purpose);
     }
 
     /**
